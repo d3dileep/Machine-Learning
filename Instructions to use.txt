@@ -1,0 +1,22 @@
+NOTE: These python codes have been developed in spyder with support of anaconda. So suggested
+	to use any suitable environment but preferably spyder for better support from my side.
+
+NOTE: please use attached csv file because it's been formated as per requirement as well as per se online 
+	stock market spreadsheet format. 
+
+STEPS:
+
+1. These are interactive codes where you have to enter "date/month/year/what to predict".
+
+2. open these python files in spyder and run it or just double click to execute these script file. Enter suitable required input.
+
+3. If any error is popping out then it signifies that datapoints of following date/month 
+	doesn't exist. If error still persist, please let me know.
+
+4. Graph visualisation is available in spyder so I expect graph to be shown in other environments
+	like MICROSOFT VS CODE, command prompt OR ANY OTHER as well.
+
+NOTE: Have a good day :-)
+
+
+
