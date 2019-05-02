@@ -16,12 +16,12 @@ Different models have been tested out and best performing has been selected for 
 
 Tested models include:
 
-Support Vector
-Random Forest
-Logistic Regression
-Decision Tree
-MultinomialNB
-keras-CNN
+    Support Vector
+    Random Forest
+    Logistic Regression
+    Decision Tree
+    MultinomialNB
+    keras-CNN
 
 The final model is LinearSVC of support Vector.
 
