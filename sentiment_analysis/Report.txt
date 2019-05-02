@@ -1,0 +1,27 @@
+The model selection is one of the most critical step in ML.
+
+Following steps involve in the current project:
+
+1) Read and clean the data.
+2) Tokenize and generate feature matrix.
+3) prepare training and testing data.
+4) implement different models to test and select the best performing model.
+5) predict the sentiment of the texts in required file.
+
+In CNN model, only 2 epochs have been performed due to heavy time consumption, where accuracy achieved on
+training dataset is 0.57.
+
+Similarly, accuracy for different models is listed below.
+
+Accuracy for Random forest on data:  0.8782808398950132
+Accuracy for Logis Regression on data:  0.9550524934383202
+Accuracy for DT gini on data:  0.8989501312335958
+Accuracy for DT entropy on data:  0.8996062992125984
+Accuracy for SVM on data:  0.9665354330708661
+Accuracy for MultinomialNB on data:  0.9448818897637795
+
+As it can be observed that SVM has performed best on training dataset. The final script is based on SVM which 
+can be found in support_vector folder. 
+
+The result/final_output is in 'result.txt'.
+
