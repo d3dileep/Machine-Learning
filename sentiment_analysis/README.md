@@ -8,7 +8,7 @@ install the python libraries mentioned in requirements.txt with python 3.x (pref
 
 ### Data
 
-The data consists of 7618 negative and positive reviews in two separate file 'data/1.txt' and 'data/2.txt'. You can examine the reviews in `data/...`.
+The data consists of 7618 negative and positive reviews in two separate file 'data/1.txt' and 'data/2.txt'. You can examine the raw reviews in `data/...`.
 
 ### Selecting the best model
 
@@ -34,4 +34,5 @@ During training we can observe the accuracy of 95%.
 ## Result
 
 The approach taken can be found in 'report.txt'.
+
 The consolidated result of the final model can be found in 'data/result.txt'
