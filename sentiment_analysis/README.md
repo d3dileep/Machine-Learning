@@ -35,4 +35,4 @@ During training we can observe the accuracy of 95%.
 
 The approach taken can be found in 'report.txt'.
 
-The consolidated result of the final model can be found in 'data/result.txt'
+The consolidated result of the final model can be found in 'support_vector/data/result.txt'
