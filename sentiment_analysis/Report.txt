@@ -11,7 +11,7 @@ Following steps involve in the current project:
 In CNN model, only 2 epochs have been performed due to heavy time consumption, where accuracy achieved on
 training dataset is 0.57.
 
-Similarly, accuracy for different models is listed below.
+Similarly, accuracy for different models is listed below. The test data size is 0.25 of the total data.
 
 Accuracy for Random forest on data:  0.8782808398950132
 Accuracy for Logis Regression on data:  0.9550524934383202
@@ -21,7 +21,7 @@ Accuracy for SVM on data:  0.9665354330708661
 Accuracy for MultinomialNB on data:  0.9448818897637795
 
 As it can be observed that SVM has performed best on training dataset. The final script is based on SVM which 
-can be found in support_vector folder. 
+can be found in support_vector folder. The model is trained with 90% of data during final prediction. 
 
 The result/final_output is in 'result.txt'.
 
