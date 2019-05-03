@@ -47,7 +47,7 @@ def train_test_split_fun(df, keras=False):
     tfidf_transformer = TfidfTransformer()
     x_train_counts = count_vect.fit_transform(train_df)
     x_train_tfidf = tfidf_transformer.fit_transform(x_train_counts)
-    x_train, x_test, y_train, y_test = train_test_split(x_train_tfidf, y, test_size=0.4, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(x_train_tfidf, y, test_size=0.25, random_state=42)
     return x_train, x_test, y_train, y_test
 
 
