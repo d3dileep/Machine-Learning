@@ -23,5 +23,5 @@ Accuracy for MultinomialNB on data:  0.9448818897637795
 As it can be observed that SVM has performed best on training dataset. The final script is based on SVM which 
 can be found in support_vector folder. The model is trained with 90% of data during final prediction. 
 
-The result/final_output is in 'result.txt'.
+The result/final_output is in 'support_vector/data/result.txt'.
 
