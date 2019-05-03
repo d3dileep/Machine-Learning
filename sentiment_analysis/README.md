@@ -1,6 +1,6 @@
 # Sentiment-Analysis
 
-In this project a Linear support vector classifier aims to predict whether a  review conveys a positive or a negative sentiment. 
+In this project a Linear support vector classifier aims to predict whether a  sentences convey a positive or a negative sentiment. 
 
 ## Getting Started
 
@@ -27,7 +27,7 @@ The final model is LinearSVC of support Vector.
 
 ### Start the Training of The Model
 
-To start the training and prediction of the model run the python script `movie_review_SVC.py`
+To start the training and prediction of the model run the python script `sentiment_SVC.py`
 
 During training we can observe the accuracy of 95%.
 
