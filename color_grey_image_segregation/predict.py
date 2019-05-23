@@ -5,15 +5,15 @@ import numpy as np
 import tensorflow as tf
 
 # First, pass the path of the image
-dir_path = os.path.dirname(os.path.realpath(__file__))
+# dir_path = os.path.dirname(os.path.realpath(__file__))
 image_path = sys.argv[1]
-filename = dir_path + '/' + image_path
-print(filename)
+# filename = dir_path + '/' + image_path
+# print(filename)
 image_size = 128
 num_channels = 3
 images = []
 # Reading the image using OpenCV
-image = cv2.imread(filename)
+image = cv2.imread(image_path)
 # Resizing the image to our desired size and preprocessing will be done exactly as done during training
 image = cv2.resize(image, (image_size, image_size), 0, 0, cv2.INTER_LINEAR)
 images.append(image)
