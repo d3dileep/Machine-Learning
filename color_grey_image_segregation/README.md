@@ -13,6 +13,7 @@ for checking if the data are labeled correctly or not.
 
 ### Start the Training of The Model
 
+The model uses tensorflow toolkit with vast opportunity to hypertuning.
 To start the training  `train.py`
 
 Once your model is trained, it will save the model files in the current folder.
