@@ -5,7 +5,7 @@ install the python libraries mentioned in requirements.txt with python 3.x (pref
 ### Data
 
 Raw images are taken from kaggles's 256_categories dataset. 
-Training and testing dataset is being prepared using 'data_prep_kmean_cluster.ipynb' 
+Training and testing dataset is being prepared using 'data_prep_kmean_cluster.ipynb'. Before executing the data_prep_kmean_cluster.pynb, create '/training_data/color', '/training_data/gray', '/testing_data/color', and '/testing_data/gray' directories.
 
 ### Kmean_clustering
 
