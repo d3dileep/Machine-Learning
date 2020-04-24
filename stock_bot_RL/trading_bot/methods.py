@@ -68,8 +68,8 @@ def evaluate_model(agent, data, window_size, debug):
     agent.inventory = []
     
     state = get_state(data, 0, window_size + 1)
-    print(state)
-    time.sleep(10)
+#    print(state)
+#    time.sleep(10)
     for t in range(data_length):        
         reward = 0
         next_state = get_state(data, t + 1, window_size + 1)
