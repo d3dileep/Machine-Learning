@@ -62,7 +62,7 @@ python3 eval.py data/GOOG_2019.csv --model-name model_GOOG_50 --debug
 once you finished training and evalution, you can test the model on real-time market data.
 
 ```bash
-python3 yahoo_stock_RL.py RELIANCE
+python3 yahoo_live_rl_test.py RELIANCE
 ```
 Now you are all set up!
 
