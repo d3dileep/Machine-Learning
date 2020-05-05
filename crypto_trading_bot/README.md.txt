@@ -1,0 +1,1 @@
+This is a trading bot for cryptocurrency exchange Binance. The bot perform strategic buy/sell to maximize the profit.
