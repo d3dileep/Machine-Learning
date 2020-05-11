@@ -10,8 +10,8 @@ from binance.exceptions import BinanceAPIException
 # import matplotlib.pyplot as plt
 # import mpl_finance
 
-api_key = "iZHsmlsCReb9S6zVO05Vxy8ONQYK8J3CfshgNiRh3HlRShPULMj8EYBClftHBqi1"
-api_secret = "4IHk54oeSmmoXGQqWNgi24SJ1uHaTSEBfN48nOhYex8ATFFOj2WoWZQfDFD0pzu1"
+api_key = ""
+api_secret = ""
 
 client = Client(api_key, api_secret)
 tz = pytz.timezone('UTC')
@@ -160,13 +160,13 @@ def Main():
                             quantity[symbol] = (max_amount / (quantity_1 * close))
                             quantity1 = quantity[symbol]
                             buy_open.append(open1)
-                            '''
+                            
                             client.order_limit_buy(
                                 symbol=symbol,
                                 quantity=quantity[symbol],
                                 price=close  # comment this line to buy at market price
                                 )
-                            '''
+                            
                             spent_amount += close * quantity1
                             buy[symbol] = close
                             print('Bought ' + symbol + ' at ' + str(close))
@@ -181,13 +181,13 @@ def Main():
 
                 if symbol in buy:
                     if (close >= buy[symbol] * (1 + sell_percent)) or (close  <= (1 + loss_percent) * buy[symbol]):
-                        '''
+                        
                         client.order_limit_sell(
                           symbol=symbol,
                           quantity=quantity[symbol],
                           price=close  # comment this line to sell at market price
                           )
-                        '''
+                        
                         profit = close - buy[symbol]
                         max_amount += profit
                         quantity1 = quantity[symbol]
