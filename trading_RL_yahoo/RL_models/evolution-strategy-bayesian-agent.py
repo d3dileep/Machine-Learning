@@ -7,10 +7,10 @@ import os
 import sys
 import random
 from bayes_opt import BayesianOptimization
-
-sns.set()
 from pprint import pprint
 import json
+
+sns.set()
 
 
 def get_state(data, t, n):
@@ -20,17 +20,6 @@ def get_state(data, t, n):
     for i in range(n - 1):
         res.append(block[i + 1] - block[i])
     return np.array([res])
-
-
-file = sys.argv[1]
-
-df = pd.read_csv(file)
-df.head()
-
-close = df.Close.values.tolist()
-window_size = 30
-skip = 5
-l = len(close) - 1
 
 
 class Deep_Evolution_Strategy:
@@ -266,6 +255,16 @@ def best_agent(
     except:
         return 0
 
+
+file = sys.argv[1]
+
+df = pd.read_csv(file)
+df.head()
+
+close = df.Close.values.tolist()
+window_size = 30
+skip = 5
+l = len(close) - 1
 
 best_agent(30, 1, 15, 0.1, 0.03, 500)
 

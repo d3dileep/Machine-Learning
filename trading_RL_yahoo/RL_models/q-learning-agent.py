@@ -9,9 +9,6 @@ import random
 import seaborn as sns
 sns.set()
 
-
-file = sys.argv[1]
-
 def get_state(data, t, n):
     d = t - n + 1
     block = data[d : t + 1] if d >= 0 else -d * [data[0]] + data[0 : t + 1]
@@ -19,11 +16,6 @@ def get_state(data, t, n):
     for i in range(n - 1):
         res.append(block[i + 1] - block[i])
     return np.array([res])
-
-
-df = pd.read_csv(file)
-print(df.head())
-
 
 
 class Agent:
@@ -86,7 +78,9 @@ class Agent:
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
 
-
+file = sys.argv[1]
+df = pd.read_csv(file)
+print(df.head())
 close = df.Close.values.tolist()
 window_size = 10
 skip = 4
