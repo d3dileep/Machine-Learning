@@ -82,6 +82,10 @@ file = sys.argv[1]
 df = pd.read_csv(file)
 print(df.head())
 close = df.Close.values.tolist()
+df0 = df.iloc[:503,:]
+df1 = df.iloc[503:,:]
+close0 = df0.Close.values.tolist()
+close1 = df1.Close.values.tolist()
 window_size = 10
 skip = 4
 l = len(close) - 1
