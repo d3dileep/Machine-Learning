@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 import time
-import matplotlib.pyplot as plt
-import seaborn as sns
+#import matplotlib.pyplot as plt
+#import seaborn as sns
 import os
 import sys
 import random
@@ -10,7 +10,7 @@ from bayes_opt import BayesianOptimization
 from pprint import pprint
 import json
 
-sns.set()
+#sns.set()
 
 file = sys.argv[1]
 
@@ -276,5 +276,5 @@ best_agent(30, 1, 15, 0.1, 0.03, 500)
 
 model = Model(30, 500, 3)
 agent = Agent(15, 0.1, 0.03, model, 10000, 5, 5, 1, 30)
-agent.fit(500, 100)
+agent.fit(200, 100)
 agent.buy()
