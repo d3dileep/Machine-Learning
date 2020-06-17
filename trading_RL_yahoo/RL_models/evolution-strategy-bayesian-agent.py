@@ -12,6 +12,19 @@ import json
 
 sns.set()
 
+file = sys.argv[1]
+
+df = pd.read_csv(file)
+df.head()
+df0 = df.iloc[:503,:]
+df1 = df.iloc[503:,:]
+close0 = df0.Close.values.tolist()
+close1 = df1.Close.values.tolist()
+window_size = 30
+skip = 5
+l0 = len(close0) - 1
+l1 = len(close1) - 1
+
 
 def get_state(data, t, n):
     d = t - n + 1
@@ -136,20 +149,20 @@ class Agent:
         initial_money = self.initial_money
         starting_money = initial_money
         self.model.weights = weights
-        state = get_state(close, 0, self.window_size + 1)
+        state = get_state(close0, 0, self.window_size + 1)
         inventory = []
         quantity = 0
-        for t in range(0, l, self.skip):
+        for t in range(0, l0, self.skip):
             action, buy = self.act(state)
-            next_state = get_state(close, t + 1, self.window_size + 1)
-            if action == 1 and initial_money >= close[t]:
+            next_state = get_state(close0, t + 1, self.window_size + 1)
+            if action == 1 and initial_money >= close0[t]:
                 if buy < 0:
                     buy = 1
                 if buy > self.max_buy:
                     buy_units = self.max_buy
                 else:
                     buy_units = buy
-                total_buy = buy_units * close[t]
+                total_buy = buy_units * close0[t]
                 initial_money -= total_buy
                 inventory.append(total_buy)
                 quantity += buy_units
@@ -159,7 +172,7 @@ class Agent:
                 else:
                     sell_units = quantity
                 quantity -= sell_units
-                total_sell = sell_units * close[t]
+                total_sell = sell_units * close0[t]
                 initial_money += total_sell
 
             state = next_state
@@ -170,23 +183,23 @@ class Agent:
 
     def buy(self):
         initial_money = self.initial_money
-        state = get_state(close, 0, self.window_size + 1)
+        state = get_state(close1, 0, self.window_size + 1)
         starting_money = initial_money
         states_sell = []
         states_buy = []
         inventory = []
         quantity = 0
-        for t in range(0, l, self.skip):
+        for t in range(0, l1, self.skip):
             action, buy = self.act(state)
-            next_state = get_state(close, t + 1, self.window_size + 1)
-            if action == 1 and initial_money >= close[t]:
+            next_state = get_state(close1, t + 1, self.window_size + 1)
+            if action == 1 and initial_money >= close1[t]:
                 if buy < 0:
                     buy = 1
                 if buy > self.max_buy:
                     buy_units = self.max_buy
                 else:
                     buy_units = buy
-                total_buy = buy_units * close[t]
+                total_buy = buy_units * close1[t]
                 initial_money -= total_buy
                 inventory.append(total_buy)
                 quantity += buy_units
@@ -195,7 +208,7 @@ class Agent:
                     'day %d: buy %d units at price %f, total balance %f'
                     % (t, buy_units, total_buy, initial_money)
                 )
-                df1 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close[t]], 'RESULT': ['Buy']})
+                df1 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close1[t]], 'RESULT': ['Buy']})
                 if not os.path.isfile('evolution-strategy-bayesian-agent.csv'):
                     df1.to_csv('evolution-strategy-bayesian-agent.csv', index=False)
                 else:
@@ -209,7 +222,7 @@ class Agent:
                 if sell_units < 1:
                     continue
                 quantity -= sell_units
-                total_sell = sell_units * close[t]
+                total_sell = sell_units * close1[t]
                 initial_money += total_sell
                 states_sell.append(t)
                 try:
@@ -220,7 +233,7 @@ class Agent:
                     'day %d, sell %d units at price %f, investment %f %%, total balance %f,'
                     % (t, sell_units, total_sell, invest, initial_money)
                 )
-                df2 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close[t]], 'RESULT': ['Sell']})
+                df2 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close1[t]], 'RESULT': ['Sell']})
                 if not os.path.isfile('evolution-strategy-bayesian-agent.csv'):
                     df2.to_csv('evolution-strategy-bayesian-agent.csv', index=False)
                 else:
@@ -256,17 +269,8 @@ def best_agent(
         return 0
 
 
-file = sys.argv[1]
 
-df = pd.read_csv(file)
-df.head()
-df0 = df.iloc[:503,:]
-df1 = df.iloc[503:,:]
-close0 = df0.Close.values.tolist()
-close1 = df1.Close.values.tolist()
-window_size = 30
-skip = 5
-l = len(close) - 1
+
 
 best_agent(30, 1, 15, 0.1, 0.03, 500)
 

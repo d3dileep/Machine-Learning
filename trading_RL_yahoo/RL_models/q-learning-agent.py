@@ -94,24 +94,24 @@ agent = Agent(window_size)
 epoch = 5
 
 for e in range(epoch):
-    state = get_state(close, 0, window_size + 1)
+    state = get_state(close0, 0, window_size + 1)
     total_profit = 0
     agent.inventory = []
-    for t in range(0, l, skip):
+    for t in range(0, len(close0) - 1, skip):
         action = agent.act(state)
-        next_state = get_state(close, t + 1, window_size + 1)
+        next_state = get_state(close0, t + 1, window_size + 1)
         done = True
         reward = -10
 
         if action == 1:
-            agent.inventory.append(close[t])
+            agent.inventory.append(close0[t])
             # print("Buy on %d for %f"%(t,close[t]))
 
         elif action == 2 and len(agent.inventory) > 0:
             bought_price = agent.inventory.pop(0)
-            reward = max(close[t] - bought_price, 0)
+            reward = max(close0[t] - bought_price, 0)
             done = False
-            total_profit += close[t] - bought_price
+            total_profit += close0[t] - bought_price
             # print("Sell on %d for %f, Profit %f"%(t,close[t],close[t] - bought_price))
 
         agent.memory.append((state, action, reward, next_state, done))
@@ -123,43 +123,43 @@ for e in range(epoch):
     print('epoch %d, total profit %f' % (e + 1, total_profit))
 
 
-state = get_state(close, 0, window_size + 1)
+state = get_state(close1, 0, window_size + 1)
 initial_money = 10000
 starting_money = initial_money
 states_sell = []
 states_buy = []
 agent.inventory = []
 
-for t in range(0, l, skip):
+for t in range(0, len(close1) - 1, skip):
     action = agent.act(state)
-    next_state = get_state(close, t + 1, window_size + 1)
-    if action == 1 and initial_money >= close[t]:
-        agent.inventory.append(close[t])
-        initial_money -= close[t]
+    next_state = get_state(close1, t + 1, window_size + 1)
+    if action == 1 and initial_money >= close1[t]:
+        agent.inventory.append(close1[t])
+        initial_money -= close1[t]
         states_buy.append(t)
 
         print(
             'day %d: buy UNIT at price %f, total balance %f'
-            % (t, close[t], initial_money)
+            % (t, close1[t], initial_money)
         )
-        df1 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close[t]],'RESULT': ['Buy'] })
+        df1 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close1[t]],'RESULT': ['Buy'] })
         if not os.path.isfile('q-learning-agent.csv'):
             df1.to_csv('q-learning-agent.csv', index=False)
         else:
             df1.to_csv('q-learning-agent.csv', index=False, mode='a', header=False)
     elif action == 2 and len(agent.inventory) > 0:
         bought_price = agent.inventory.pop(0)
-        initial_money += close[t]
+        initial_money += close1[t]
         states_sell.append(t)
         try:
-            invest = ((close[t] - bought_price) / bought_price) * 100
+            invest = ((close1[t] - bought_price) / bought_price) * 100
         except:
             invest = 0
         print(
             'day %d, sell UNIT at price %f, investment %f %%, total balance %f,'
-            % (t, close[t], invest, initial_money)
+            % (t, close1[t], invest, initial_money)
         )
-        df2 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close[t]],'RESULT': ['Sell'] })
+        df2 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close1[t]],'RESULT': ['Sell'] })
         if not os.path.isfile('q-learning-agent.csv'):
             df2.to_csv('q-learning-agent.csv', index=False)
         else:
