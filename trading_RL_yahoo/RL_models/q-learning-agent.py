@@ -3,11 +3,11 @@ import pandas as pd
 import tensorflow as tf
 import os
 import sys
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from collections import deque
 import random
-import seaborn as sns
-sns.set()
+#import seaborn as sns
+#sns.set()
 
 def get_state(data, t, n):
     d = t - n + 1
