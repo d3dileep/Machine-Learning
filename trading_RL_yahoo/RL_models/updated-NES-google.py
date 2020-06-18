@@ -1,12 +1,12 @@
 import numpy as np
 import pandas as pd
 import sys
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import os
-#import seaborn as sns
+import seaborn as sns
 import time
 
-#sns.set()
+sns.set()
 
 solution = np.random.randn(100)
 w = np.random.randn(100)
@@ -342,6 +342,6 @@ agent = Agent(
     skip=1,
 )
 
-agent.fit(iterations=100, checkpoint=10)
+agent.fit(iterations=500, checkpoint=10)
 
 agent.buy()
