@@ -84,8 +84,13 @@ print(df.head())
 close = df.Close.values.tolist()
 df0 = df.iloc[:503,:]
 df1 = df.iloc[503:,:]
+# print('dfo0')
+# print(df0.head())
+# print('dfo1')
+# print(df1.head())
 close0 = df0.Close.values.tolist()
 close1 = df1.Close.values.tolist()
+date1 = df1.Date.values.tolist()
 window_size = 10
 skip = 4
 l = len(close) - 1
@@ -142,7 +147,7 @@ for t in range(0, len(close1) - 1, skip):
             'day %d: buy UNIT at price %f, total balance %f'
             % (t, close1[t], initial_money)
         )
-        df1 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close1[t]],'RESULT': ['Buy'] })
+        df1 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]],'RESULT': ['Buy'] })
         if not os.path.isfile('q-learning-agent.csv'):
             df1.to_csv('q-learning-agent.csv', index=False)
         else:
@@ -159,7 +164,7 @@ for t in range(0, len(close1) - 1, skip):
             'day %d, sell UNIT at price %f, investment %f %%, total balance %f,'
             % (t, close1[t], invest, initial_money)
         )
-        df2 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close1[t]],'RESULT': ['Sell'] })
+        df2 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]],'RESULT': ['Sell'] })
         if not os.path.isfile('q-learning-agent.csv'):
             df2.to_csv('q-learning-agent.csv', index=False)
         else:

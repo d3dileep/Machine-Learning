@@ -22,6 +22,7 @@ close0 = df0.Close.values.tolist()
 close1 = df1.Close.values.tolist()
 window_size = 30
 skip = 5
+date1 = df1.Date.values.tolist()
 l0 = len(close0) - 1
 l1 = len(close1) - 1
 
@@ -208,7 +209,7 @@ class Agent:
                     'day %d: buy %d units at price %f, total balance %f'
                     % (t, buy_units, total_buy, initial_money)
                 )
-                df1 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close1[t]], 'RESULT': ['Buy']})
+                df1 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Buy']})
                 if not os.path.isfile('evolution-strategy-bayesian-agent.csv'):
                     df1.to_csv('evolution-strategy-bayesian-agent.csv', index=False)
                 else:
@@ -233,7 +234,7 @@ class Agent:
                     'day %d, sell %d units at price %f, investment %f %%, total balance %f,'
                     % (t, sell_units, total_sell, invest, initial_money)
                 )
-                df2 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close1[t]], 'RESULT': ['Sell']})
+                df2 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Sell']})
                 if not os.path.isfile('evolution-strategy-bayesian-agent.csv'):
                     df2.to_csv('evolution-strategy-bayesian-agent.csv', index=False)
                 else:

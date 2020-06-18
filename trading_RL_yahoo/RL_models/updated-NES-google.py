@@ -198,7 +198,7 @@ class Agent:
                     'day %d: buy %d units at price %f, total balance %f'
                     % (t, buy_units, total_buy, initial_money)
                 )
-                df1 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close1[t]], 'RESULT': ['Buy']})
+                df1 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Buy']})
                 if not os.path.isfile('updated-NES-google.csv'):
                     df1.to_csv('updated-NES-google.csv', index=False)
                 else:
@@ -223,7 +223,7 @@ class Agent:
                     'day %d, sell %d units at price %f, investment %f %%, total balance %f,'
                     % (t, sell_units, total_sell, invest, initial_money)
                 )
-                df2 = pd.DataFrame({'Date': df['Date'][t], 'Close': [close1[t]], 'RESULT': ['Sell']})
+                df2 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Sell']})
                 if not os.path.isfile('updated-NES-google.csv'):
                     df2.to_csv('updated-NES-google.csv', index=False)
                 else:
@@ -269,9 +269,14 @@ file = sys.argv[1]
 df = pd.read_csv(file)
 df.head()
 df0 = df.iloc[:503,:]
+# print('dfo0')
+# print(df0.head())
 df1 = df.iloc[503:,:]
+# print('dfo1')
+# print(df1.head())
 close0 = df0.Close.values.tolist()
 close1 = df1.Close.values.tolist()
+date1 = df1.Date.values.tolist()
 l0 = len(close0) - 1
 l1 = len(close1) - 1
 
