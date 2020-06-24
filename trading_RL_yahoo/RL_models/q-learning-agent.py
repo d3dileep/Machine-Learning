@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import os
 import sys
 import matplotlib.pyplot as plt
@@ -8,6 +8,8 @@ from collections import deque
 import random
 import seaborn as sns
 sns.set()
+tf.compat.v1.disable_eager_execution()
+
 
 def get_state(data, t, n):
     d = t - n + 1
