@@ -171,6 +171,8 @@ for t in range(0, len(close1) - 1, skip):
             df2.to_csv('q-learning-agent.csv', index=False)
         else:
             df2.to_csv('q-learning-agent.csv', index=False, mode='a', header=False)
+    else:
+        print(pd.DataFrame({'Date': date1[t], 'Close': [close1[t]],'RESULT': ['hold'] }))
     state = next_state
 
 invest = ((initial_money - starting_money) / starting_money) * 100
