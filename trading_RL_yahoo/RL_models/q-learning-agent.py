@@ -98,7 +98,7 @@ skip = 4
 l = len(close) - 1
 batch_size = 32
 agent = Agent(window_size)
-epoch = 5
+epoch = 5000
 
 for e in range(epoch):
     state = get_state(close0, 0, window_size + 1)

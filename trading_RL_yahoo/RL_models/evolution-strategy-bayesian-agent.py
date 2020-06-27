@@ -144,7 +144,7 @@ class Agent:
 
     def act(self, sequence):
         decision, buy = self.model.predict(np.array(sequence))
-        return np.argmax(decision[0]), round(buy[0][0]).astype(int)
+        return np.argmax(decision[0]), int(round(buy[0][0]))
 
     def get_reward(self, weights):
         initial_money = self.initial_money
@@ -277,5 +277,5 @@ best_agent(30, 1, 15, 0.1, 0.03, 500)
 
 model = Model(30, 500, 3)
 agent = Agent(15, 0.1, 0.03, model, 10000, 5, 5, 1, 30)
-agent.fit(100, 100)
+agent.fit(1000, 100)
 agent.buy()
