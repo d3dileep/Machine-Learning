@@ -209,7 +209,7 @@ class Agent:
                     'day %d: buy %d units at price %f, total balance %f'
                     % (t, buy_units, total_buy, initial_money)
                 )
-                df1 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Buy']})
+                df1 = pd.DataFrame({'Date': date1[t+1], 'Close': [close1[t+1]], 'RESULT': ['Buy']})
                 if not os.path.isfile('evolution-strategy-bayesian-agent.csv'):
                     df1.to_csv('evolution-strategy-bayesian-agent.csv', index=False)
                 else:
@@ -234,7 +234,7 @@ class Agent:
                     'day %d, sell %d units at price %f, investment %f %%, total balance %f,'
                     % (t, sell_units, total_sell, invest, initial_money)
                 )
-                df2 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Sell']})
+                df2 = pd.DataFrame({'Date': date1[t+1], 'Close': [close1[t+1]], 'RESULT': ['Sell']})
                 if not os.path.isfile('evolution-strategy-bayesian-agent.csv'):
                     df2.to_csv('evolution-strategy-bayesian-agent.csv', index=False)
                 else:
@@ -245,7 +245,7 @@ class Agent:
                     'day %d, hold UNIT at price %f,  total balance %f,'
                     % (t, close1[t], initial_money)
                 )
-                df3 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Hold']})
+                df3 = pd.DataFrame({'Date': date1[t+1], 'Close': [close1[t+1]], 'RESULT': ['Hold']})
                 if not os.path.isfile('evolution-strategy-bayesian-agent.csv'):
                     df3.to_csv('evolution-strategy-bayesian-agent.csv', index=False)
                 else:

@@ -141,7 +141,7 @@ class Agent:
         state = get_state(close0, 0, self.window_size + 1)
         inventory = []
         quantity = 0
-        for t in range(0, l0, self.skip):
+        for t in range(0, l0):
             action, buy = self.act(state)
             next_state = get_state(close0, t + 1, self.window_size + 1)
             if action == 1 and initial_money >= close0[t]:
@@ -179,7 +179,7 @@ class Agent:
         states_buy = []
         inventory = []
         quantity = 0
-        for t in range(0, l1, self.skip):
+        for t in range(0, l1):
             action, buy = self.act(state)
             next_state = get_state(close1, t + 1, self.window_size + 1)
             if action == 1 and initial_money >= close1[t]:
@@ -196,9 +196,9 @@ class Agent:
                 states_buy.append(t)
                 print(
                     'day %d: buy %d units at price %f, total balance %f'
-                    % (t, buy_units, total_buy, initial_money)
+                    % (t+1, buy_units, total_buy, initial_money)
                 )
-                df1 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Buy']})
+                df1 = pd.DataFrame({'Date': date1[t+1], 'Close': [close1[t+1]], 'RESULT': ['Buy']})
                 if not os.path.isfile('updated-NES-google.csv'):
                     df1.to_csv('updated-NES-google.csv', index=False)
                 else:
@@ -221,9 +221,9 @@ class Agent:
                     invest = 0
                 print(
                     'day %d, sell %d units at price %f, investment %f %%, total balance %f,'
-                    % (t, sell_units, total_sell, invest, initial_money)
+                    % (t+1, sell_units, total_sell, invest, initial_money)
                 )
-                df2 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Sell']})
+                df2 = pd.DataFrame({'Date': date1[t+1], 'Close': [close1[t+1]], 'RESULT': ['Sell']})
                 if not os.path.isfile('updated-NES-google.csv'):
                     df2.to_csv('updated-NES-google.csv', index=False)
                 else:
@@ -232,9 +232,9 @@ class Agent:
             else:
                 print(
                     'day %d, hold UNIT at price %f,  total balance %f,'
-                    % (t, close1[t], initial_money)
+                    % (t+1, close1[t+1], initial_money)
                 )
-                df3 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Hold']})
+                df3 = pd.DataFrame({'Date': date1[t+1], 'Close': [close1[t+1]], 'RESULT': ['Hold']})
                 if not os.path.isfile('updated-NES-google.csv'):
                     df3.to_csv('updated-NES-google.csv', index=False)
                 else:
@@ -321,7 +321,7 @@ max_buy = 5
 max_sell = 5
 
 
-for t in range(0, l0, skip):
+for t in range(0, l0):
     action, buy = act(weight, state)
     next_state = get_state(close0, t + 1, window_size + 1)
     if action == 1 and initial_money >= close0[t]:

@@ -89,10 +89,11 @@ df1 = df.iloc[503:,:]
 # print('dfo0')
 # print(df0.head())
 # print('dfo1')
-# print(df1.tail())
+print(df1.tail())
 close0 = df0.Close.values.tolist()
 close1 = df1.Close.values.tolist()
 date1 = df1.Date.values.tolist()
+print(len(close1)-1)
 dff = pd.DataFrame()
 # print(type(date1[-1]))
 x = date1[-1]
@@ -144,7 +145,7 @@ states_sell = []
 states_buy = []
 agent.inventory = []
 
-for t in range(0, len(close1) - 1):
+for t in range(0, len(close1)-1):
     action = agent.act(state)
     next_state = get_state(close1, t + 1, window_size + 1)
     if action == 1 and initial_money >= close1[t]:
@@ -154,9 +155,9 @@ for t in range(0, len(close1) - 1):
 
         print(
             'day %d: buy UNIT at price %f, total balance %f'
-            % (t, close1[t], initial_money)
+            % (t+1, close1[t+1], initial_money)
         )
-        df1 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]],'RESULT': ['Buy'] })
+        df1 = pd.DataFrame({'Date': date1[t+1], 'Close': [close1[t+1]],'RESULT': ['Buy'] })
         if not os.path.isfile('q-learning-agent.csv'):
             df1.to_csv('q-learning-agent.csv', index=False)
         else:
@@ -166,14 +167,14 @@ for t in range(0, len(close1) - 1):
         initial_money += close1[t]
         states_sell.append(t)
         try:
-            invest = ((close1[t] - bought_price) / bought_price) * 100
+            invest = ((close1[t+1] - bought_price) / bought_price) * 100
         except:
             invest = 0
         print(
             'day %d, sell UNIT at price %f, investment %f %%, total balance %f,'
-            % (t, close1[t], invest, initial_money)
+            % (t+1, close1[t+1], invest, initial_money)
         )
-        df2 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]],'RESULT': ['Sell'] })
+        df2 = pd.DataFrame({'Date': date1[t+1], 'Close': [close1[t+1]],'RESULT': ['Sell'] })
         if not os.path.isfile('q-learning-agent.csv'):
             df2.to_csv('q-learning-agent.csv', index=False)
         else:
@@ -182,9 +183,9 @@ for t in range(0, len(close1) - 1):
     else:
         print(
             'day %d, hold UNIT at price %f,  total balance %f,'
-            % (t, close1[t], initial_money)
+            % (t+1, close1[t+1], initial_money)
         )
-        df3 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Hold']})
+        df3 = pd.DataFrame({'Date': date1[t+1], 'Close': [close1[t+1]], 'RESULT': ['Hold']})
         if not os.path.isfile('q-learning-agent.csv'):
             df3.to_csv('q-learning-agent.csv', index=False)
         else:
