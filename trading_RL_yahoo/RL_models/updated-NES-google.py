@@ -229,6 +229,17 @@ class Agent:
                 else:
                     df2.to_csv('updated-NES-google.csv', index=False, mode='a', header=False)
 
+            else:
+                print(
+                    'day %d, hold UNIT at price %f,  total balance %f,'
+                    % (t, close1[t], initial_money)
+                )
+                df3 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Hold']})
+                if not os.path.isfile('updated-NES-google.csv'):
+                    df3.to_csv('updated-NES-google.csv', index=False)
+                else:
+                    df3.to_csv('updated-NES-google.csv', index=False, mode='a', header=False)
+
             state = next_state
 
         fi = pd.read_csv('updated-NES-google.csv')
@@ -276,7 +287,6 @@ df0 = df.iloc[:503,:]
 # print('dfo0')
 # print(df0.head())
 df1 = df.iloc[503:,:]
-print(df1.head())
 # print('dfo1')
 # print(df1.head())
 close0 = df0.Close.values.tolist()

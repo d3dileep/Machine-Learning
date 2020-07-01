@@ -239,6 +239,19 @@ class Agent:
                     df2.to_csv('evolution-strategy-bayesian-agent.csv', index=False)
                 else:
                     df2.to_csv('evolution-strategy-bayesian-agent.csv', index=False, mode='a', header=False)
+
+            else:
+                print(
+                    'day %d, hold UNIT at price %f,  total balance %f,'
+                    % (t, close1[t], initial_money)
+                )
+                df3 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Hold']})
+                if not os.path.isfile('evolution-strategy-bayesian-agent.csv'):
+                    df3.to_csv('evolution-strategy-bayesian-agent.csv', index=False)
+                else:
+                    df3.to_csv('evolution-strategy-bayesian-agent.csv', index=False, mode='a', header=False)
+
+
             state = next_state
 
         fi = pd.read_csv('evolution-strategy-bayesian-agent.csv')

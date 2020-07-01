@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import os
 import sys
 import matplotlib.pyplot as plt
@@ -8,6 +8,7 @@ from collections import deque
 import random
 import seaborn as sns
 sns.set()
+tf.disable_v2_behavior()
 
 
 def get_state(data, t, n):
@@ -92,6 +93,7 @@ df1 = df.iloc[503:,:]
 close0 = df0.Close.values.tolist()
 close1 = df1.Close.values.tolist()
 date1 = df1.Date.values.tolist()
+dff = pd.DataFrame()
 # print(type(date1[-1]))
 x = date1[-1]
 next_day = (pd.Timestamp(x) + pd.DateOffset(days=1)).strftime('%Y-%m-%d')
@@ -176,6 +178,18 @@ for t in range(0, len(close1) - 1):
             df2.to_csv('q-learning-agent.csv', index=False)
         else:
             df2.to_csv('q-learning-agent.csv', index=False, mode='a', header=False)
+
+    else:
+        print(
+            'day %d, hold UNIT at price %f,  total balance %f,'
+            % (t, close1[t], initial_money)
+        )
+        df3 = pd.DataFrame({'Date': date1[t], 'Close': [close1[t]], 'RESULT': ['Hold']})
+        if not os.path.isfile('q-learning-agent.csv'):
+            df3.to_csv('q-learning-agent.csv', index=False)
+        else:
+            df3.to_csv('q-learning-agent.csv', index=False, mode='a', header=False)
+
     state = next_state
 
 fi = pd.read_csv('q-learning-agent.csv')
