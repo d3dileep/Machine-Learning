@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
 import os
 import sys
 import matplotlib.pyplot as plt
@@ -8,7 +8,6 @@ from collections import deque
 import random
 import seaborn as sns
 sns.set()
-tf.compat.v1.disable_eager_execution()
 
 
 def get_state(data, t, n):
@@ -89,22 +88,28 @@ df1 = df.iloc[503:,:]
 # print('dfo0')
 # print(df0.head())
 # print('dfo1')
-# print(df1.head())
+# print(df1.tail())
 close0 = df0.Close.values.tolist()
 close1 = df1.Close.values.tolist()
 date1 = df1.Date.values.tolist()
+# print(type(date1[-1]))
+x = date1[-1]
+next_day = (pd.Timestamp(x) + pd.DateOffset(days=1)).strftime('%Y-%m-%d')
+next_day = (pd.to_datetime(x) + pd.Timedelta('1 day')).strftime('%Y-%m-%d')
+#
+# print(res)
 window_size = 10
-skip = 4
+skip = 0
 l = len(close) - 1
 batch_size = 32
 agent = Agent(window_size)
-epoch = 5000
+epoch = 5
 
 for e in range(epoch):
     state = get_state(close0, 0, window_size + 1)
     total_profit = 0
     agent.inventory = []
-    for t in range(0, len(close0) - 1, skip):
+    for t in range(0, len(close0) - 1):
         action = agent.act(state)
         next_state = get_state(close0, t + 1, window_size + 1)
         done = True
@@ -137,11 +142,10 @@ states_sell = []
 states_buy = []
 agent.inventory = []
 
-for t in range(0, len(close1) - 1, skip):
+for t in range(0, len(close1) - 1):
     action = agent.act(state)
     next_state = get_state(close1, t + 1, window_size + 1)
     if action == 1 and initial_money >= close1[t]:
-        print({'Date': date1[t], 'Close': [close1[t]],'RESULT': ['buy'] })
         agent.inventory.append(close1[t])
         initial_money -= close1[t]
         states_buy.append(t)
@@ -156,7 +160,6 @@ for t in range(0, len(close1) - 1, skip):
         else:
             df1.to_csv('q-learning-agent.csv', index=False, mode='a', header=False)
     elif action == 2 and len(agent.inventory) > 0:
-        print({'Date': date1[t], 'Close': [close1[t]],'RESULT': ['sell'] })
         bought_price = agent.inventory.pop(0)
         initial_money += close1[t]
         states_sell.append(t)
@@ -173,9 +176,11 @@ for t in range(0, len(close1) - 1, skip):
             df2.to_csv('q-learning-agent.csv', index=False)
         else:
             df2.to_csv('q-learning-agent.csv', index=False, mode='a', header=False)
-    else:
-        print({'Date': date1[t], 'Close': [close1[t]],'RESULT': ['hold'] })
     state = next_state
+
+fi = pd.read_csv('q-learning-agent.csv')
+print(fi.tail(2))
+
 
 invest = ((initial_money - starting_money) / starting_money) * 100
 print(

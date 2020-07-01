@@ -231,6 +231,10 @@ class Agent:
 
             state = next_state
 
+        fi = pd.read_csv('updated-NES-google.csv')
+        print(fi.tail(2))
+
+
         invest = ((initial_money - starting_money) / starting_money) * 100
         print(
             '\ntotal gained %f, total investment %f %%'
@@ -272,6 +276,7 @@ df0 = df.iloc[:503,:]
 # print('dfo0')
 # print(df0.head())
 df1 = df.iloc[503:,:]
+print(df1.head())
 # print('dfo1')
 # print(df1.head())
 close0 = df0.Close.values.tolist()
@@ -304,6 +309,7 @@ quantity = 0
 
 max_buy = 5
 max_sell = 5
+
 
 for t in range(0, l0, skip):
     action, buy = act(weight, state)
@@ -342,6 +348,6 @@ agent = Agent(
     skip=1,
 )
 
-agent.fit(iterations=1000, checkpoint=10)
+agent.fit(iterations=500, checkpoint=10)
 
 agent.buy()

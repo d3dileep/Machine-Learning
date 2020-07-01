@@ -144,7 +144,7 @@ class Agent:
 
     def act(self, sequence):
         decision, buy = self.model.predict(np.array(sequence))
-        return np.argmax(decision[0]), int(round(buy[0][0]))
+        return np.argmax(decision[0]), round(buy[0][0]).astype(int)
 
     def get_reward(self, weights):
         initial_money = self.initial_money
@@ -153,7 +153,7 @@ class Agent:
         state = get_state(close0, 0, self.window_size + 1)
         inventory = []
         quantity = 0
-        for t in range(0, l0, self.skip):
+        for t in range(0, l0):
             action, buy = self.act(state)
             next_state = get_state(close0, t + 1, self.window_size + 1)
             if action == 1 and initial_money >= close0[t]:
@@ -190,7 +190,7 @@ class Agent:
         states_buy = []
         inventory = []
         quantity = 0
-        for t in range(0, l1, self.skip):
+        for t in range(0, l1):
             action, buy = self.act(state)
             next_state = get_state(close1, t + 1, self.window_size + 1)
             if action == 1 and initial_money >= close1[t]:
@@ -241,6 +241,10 @@ class Agent:
                     df2.to_csv('evolution-strategy-bayesian-agent.csv', index=False, mode='a', header=False)
             state = next_state
 
+        fi = pd.read_csv('evolution-strategy-bayesian-agent.csv')
+        print(fi.tail(2))
+
+
         invest = ((initial_money - starting_money) / starting_money) * 100
         print(
             '\ntotal gained %f, total investment %f %%'
@@ -277,5 +281,5 @@ best_agent(30, 1, 15, 0.1, 0.03, 500)
 
 model = Model(30, 500, 3)
 agent = Agent(15, 0.1, 0.03, model, 10000, 5, 5, 1, 30)
-agent.fit(1000, 100)
+agent.fit(500, 100)
 agent.buy()
