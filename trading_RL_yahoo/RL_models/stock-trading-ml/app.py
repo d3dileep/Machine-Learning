@@ -1,4 +1,4 @@
-from alpha_vantage.timeseries import TimeSeries
+#from alpha_vantage.timeseries import TimeSeries
 import pandas as pd
 from util import csv_to_dataset, history_points
 from tech_ind_model import data_split
@@ -20,10 +20,14 @@ if __name__ == "__main__":
     current_date = date.today().isoformat()   
     if symbol+'.csv' not in data_list:
         save_dataset(symbol)
-        days = 200
+        data = pd.read_csv("{}.csv".format(symbol))
+        days = int(0.9 * len(data))
         data_split(symbol,days)
         trade(symbol+'.csv',days)
     else:
-        days = 200
+        data = pd.read_csv("{}.csv".format(symbol))
+        print(data.tail())
+        days = int(0.9 * len(data))
+        print("\n", days,"\n")
         data_split(symbol,days)
         trade(symbol+'.csv',days)

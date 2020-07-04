@@ -6,7 +6,7 @@ from keras import optimizers
 import numpy as np
 from datetime import datetime
 import matplotlib  
-matplotlib.use('TkAgg')   
+#matplotlib.use('TkAgg')   
 import matplotlib.pyplot as plt  
 np.random.seed(4)
 tf.random.set_seed(4)
@@ -54,7 +54,7 @@ def data_split(symbol,days):
     model = Model(inputs=[lstm_branch.input, technical_indicators_branch.input], outputs=z)
     opt = optimizers.Adam(lr=0.0005)
     model.compile(optimizer='adam', loss='mse')
-    model.fit(x=[ohlcv_train, tech_ind_train], y=y_train, batch_size=32, epochs=5, shuffle=True, validation_split=0.1)
+    model.fit(x=[ohlcv_train, tech_ind_train], y=y_train, batch_size=32, epochs=500, shuffle=True, validation_split=0.1)
 
 
     # evaluation
