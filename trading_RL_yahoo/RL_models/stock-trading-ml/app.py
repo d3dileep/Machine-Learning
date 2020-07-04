@@ -18,8 +18,8 @@ if __name__ == "__main__":
     symbol = sys.argv[1]
     data_list = [x for x in os.listdir('.') if x.endswith('.csv')]
     current_date = date.today().isoformat()   
-    if sys.argv[1]+'.csv' not in data_list:
-        save_dataset(sys.argv[1])
+    if symbol+'.csv' not in data_list:
+        save_dataset(symbol)
         days = 200
         data_split(symbol,days)
         trade(symbol+'.csv',days)

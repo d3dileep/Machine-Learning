@@ -16,7 +16,7 @@ def data_split(symbol,days):
     ohlcv_histories, technical_indicators, next_day_open_values, unscaled_y, y_normaliser = csv_to_dataset(symbol+'.csv')
 
     test_split = 0.9
-    n = int(ohlcv_histories.shape[0] * test_split)
+    n = int(ohlcv_histories.shape[0]) - days
 
     ohlcv_train = ohlcv_histories[:n]
     tech_ind_train = technical_indicators[:n]
@@ -54,7 +54,7 @@ def data_split(symbol,days):
     model = Model(inputs=[lstm_branch.input, technical_indicators_branch.input], outputs=z)
     opt = optimizers.Adam(lr=0.0005)
     model.compile(optimizer='adam', loss='mse')
-    model.fit(x=[ohlcv_train, tech_ind_train], y=y_train, batch_size=16, epochs=5, shuffle=True, validation_split=0.1)
+    model.fit(x=[ohlcv_train, tech_ind_train], y=y_train, batch_size=32, epochs=5, shuffle=True, validation_split=0.1)
 
 
     # evaluation
