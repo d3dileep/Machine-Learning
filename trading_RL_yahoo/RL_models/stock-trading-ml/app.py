@@ -1,4 +1,4 @@
-#from alpha_vantage.timeseries import TimeSeries
+from alpha_vantage.timeseries import TimeSeries
 import pandas as pd
 from util import csv_to_dataset, history_points
 from tech_ind_model import data_split
@@ -25,7 +25,7 @@ if __name__ == "__main__":
         data_split(symbol,days)
         trade(symbol+'.csv',days)
     else:
-        data = pd.read_csv("{}.csv".format(symbol))
+        data = pd.read_csv("{}.csv".format(symbol))#[['date','open','high','low','close','volume']]
         print(data.tail())
         days = int(0.9 * len(data))
         print("\n", days,"\n")
