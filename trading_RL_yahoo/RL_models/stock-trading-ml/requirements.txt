@@ -1,7 +1,0 @@
-alpha_vantage
-pandas
-numpy
-sklearn
-keras
-tensorflow==2.2.0
-matplotlib
