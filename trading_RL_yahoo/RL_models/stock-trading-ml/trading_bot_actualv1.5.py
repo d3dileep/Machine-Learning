@@ -1,20 +1,20 @@
 import pandas as pd
 import sys
 import os
-
+import time
 
 
 buy = {}
 
 loss = []
 quantity = {}
-file = sys.argv[1]
+file = sys.argv[1]+".csv"
 fil = file[:-4]
 df = pd.read_csv(file)
 open = df["Open"]
 date = df['Date']
 close1 = df["Close"]
-oname = fil+'_output.csv'
+oname = fil+'_output_algo.csv'
 
 l = len(df)
 print(l)
@@ -36,6 +36,8 @@ def Main():
     spent_amount = 0
     count = 0
     buy_open = []  # to avoid buying at same candle
+    if os.path.isfile(oname):
+        os.remove(oname)
     while i<l:
         open1 = open[i]
         close = close1[i]
@@ -58,10 +60,12 @@ def Main():
 
                         df1 = pd.DataFrame({'Datetime': [date1], 'Buy/Sell': ['Buy'],
                                             'Quantity': [quantity1], 'Price': [close], 'Profit/loss': [0]})
-                        if not os.path.isfile('Binance.csv'):
-                            df1.to_csv(oname, index=False)
+                      
+   
+                        if not os.path.isfile(oname):
+                            df1.to_csv(oname)
                         else:
-                            df1.to_csv(oname, index=False, mode='a', header=False)
+                            df1.to_csv(oname, mode='a', header=False)
 
             if symbol in buy:
                 if (close >= buy[symbol] * (1 + sell_percent)) or (close <= (1 + loss_percent) * buy[symbol]):
@@ -76,7 +80,7 @@ def Main():
 
                     df2 = pd.DataFrame({'Datetime': [date1], 'Buy/Sell': ['Sell'],
                                         'Quantity': [quantity_1], 'Price': [close], 'Profit/loss': [total_profit]})
-                    df2.to_csv(oname, index=False, mode='a', header=False)
+                    df2.to_csv(oname,mode='a', header=False)
 
                     loss.append(total_profit)
                     buy.pop(symbol)  # Removing the sold symbol
@@ -87,16 +91,10 @@ def Main():
 
                 df3 = pd.DataFrame({'Datetime': [date1], 'Buy/Sell': ['Hold'],
                                     'Quantity': [quantity_1], 'Price': [close], 'Profit/loss': [total_profit]})
-                df3.to_csv(oname, index=False, mode='a', header=False)
-
-
-
-
-            if (loss_limit > sum(loss)) or (count > int(transaction)):
-                print("Quitting....")
-                raise SystemExit
-
-
+                if not os.path.isfile(oname):
+                    df3.to_csv(oname)
+                else:              
+                    df3.to_csv(oname, mode='a', header=False)
         except KeyboardInterrupt:
             print("Total Profit " + str(sum(loss)))
             fi = pd.read_csv(oname)
@@ -105,12 +103,13 @@ def Main():
 
         except SystemExit:
             fi = pd.read_csv(oname)
-            print(fi.tail(2))
+#            print(fi.tail(2))
             print("Exit")
             print("Total Profit " + str(sum(loss)))
             break
+        print("Total profit:",sum(loss))
 
-    fi = pd.read_csv(oname)
+    fi = pd.read_csv(oname)[['Datetime','Buy/Sell','Price']]
     print(fi.tail(2))
 
 if __name__ == "__main__":
