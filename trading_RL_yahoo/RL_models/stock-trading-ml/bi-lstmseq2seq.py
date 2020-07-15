@@ -29,7 +29,7 @@ df_log = minmax.transform(df.iloc[:, 4:5].astype('float32')) # Close index
 df_log = pd.DataFrame(df_log)
 df_log.head()
 
-test_size = 30
+test_size = 60
 prediction_size = 5
 
 df_train = df_log.iloc[:-test_size]
@@ -272,4 +272,4 @@ xans = d.loc[ans]
 yans = d.loc['Current/Real Values']
 dffinal = pd.concat([yans, xans], axis=1)
 print(dffinal.tail(2))
-d.to_csv("bi-lstmseq2seq.csv")
+dffinal.to_csv("bi-lstmseq2seq.csv")
