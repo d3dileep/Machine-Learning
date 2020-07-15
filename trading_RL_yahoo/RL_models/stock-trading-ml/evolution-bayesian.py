@@ -363,23 +363,7 @@ max_sell = 5
 ##----------------------------------------------------
 ## Bayesian Stuff
 accbest = 0.0
-NN_BAYESIAN = BayesianOptimization(
-    find_best_agent,
-    {
-        'window_size': (2, 50),  # standard: 2,50
-        'skip': (1, 15),  # standard: 1,15
-        'population_size': (1, 50),  # standard: 1,50
-        'sigma': (0.01, 0.99),
-        'learning_rate': (0.000001, 0.49),  # standard: 0.000001 , 0.49
-        'size_network': (10, 100),  # standard: 10,1000
-    },
-)
-NN_BAYESIAN.maximize(init_points=5, n_iter=5, acq='ei', xi=0.0)  # standard: init_points=30 n_iter=50
-
-print('----------------------------------------------')
-print(NN_BAYESIAN.max)
-
-params = NN_BAYESIAN.max['params']
+params = {'learning_rate': 0.12210782546582813, 'population_size': 39.64073095119038, 'sigma': 0.49213971808424556, 'size_network': 32.87796545535495, 'skip': 11.155765169585422, 'window_size': 29.837127430927058}
 # ______________________________________________________________________________
 # ------------------------------------------------------------------------------
 best_agent(int(params['window_size']), int(params['skip']),
@@ -390,6 +374,6 @@ model = Model(int(params['window_size']), int(params['size_network']), 3)
 agent = Agent(int(params['population_size']), params['sigma'], params['learning_rate'], model, 10000, 5, 5,
               int(params['skip']), int(params['window_size']))
 
-agent.fit(iterations=1, checkpoint=1)
+agent.fit(iterations=10, checkpoint=1)
 
 agent.buy()
