@@ -32,7 +32,7 @@ df_log.head()
 
 
 test_size = 5
-prediction_size = 5
+prediction_size = 2
 
 df_train = df_log.iloc[:-test_size]
 df_test = df_log.iloc[-test_size:]
@@ -226,7 +226,7 @@ date1 = df.Date.values.tolist()
 date3=[]
 for date in date1:
     if(str(date)!="nan"):
-        date3.append(datetime.strptime(str(date), "%m/%d/%Y")+timedelta(days=30))
+        date3.append(datetime.strptime(str(date), "%Y-%m-%d")+timedelta(days=30))
     
     #print(date)
 date2 = date1[-test_size:]
@@ -235,15 +235,15 @@ d.columns = date3[-test_size:]
 x = d.loc['Current/Real Values'].array
 x1 = d.loc['prediction1'].array
 x2 = d.loc['prediction2'].array
-x3 = d.loc['prediction3'].array
-x4 = d.loc['prediction4'].array
-x5 = d.loc['prediction5'].array
+#x3 = d.loc['prediction3'].array
+#x4 = d.loc['prediction4'].array
+#x5 = d.loc['prediction5'].array
 z = []
 z.append(x1)
 z.append(x2)
-z.append(x3)
-z.append(x4)
-z.append(x5)
+#z.append(x3)
+#z.append(x4)
+#z.append(x5)
 
 
 diff = []
