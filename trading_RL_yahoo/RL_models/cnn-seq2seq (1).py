@@ -13,6 +13,17 @@ from sklearn.preprocessing import MinMaxScaler
 from datetime import datetime
 from datetime import timedelta
 from tqdm import tqdm
+import datetime as dt
+def date_by_adding_business_days(from_date, add_days):
+    business_days_to_add = add_days
+    current_date = from_date
+    while business_days_to_add > 0:
+        current_date += dt.timedelta(days=1)
+        weekday = current_date.weekday()
+        if weekday > 4: # sunday = 6
+            continue
+        business_days_to_add -= 1
+    return current_date
 sns.set()
 tf.set_random_seed(1234)
 tf.disable_v2_behavior()
@@ -21,7 +32,9 @@ tf.disable_v2_behavior()
 file = sys.argv[1]
 df = pd.read_csv(file)
 print(df.head())
-
+if(df.shape[0]%5!=0):
+    p=np.arange(1,(df.shape[0]%5)+1)
+    df.drop(p)
 minmax = MinMaxScaler().fit(df.iloc[:, 4:5].astype('float32')) # Close index
 df_log = minmax.transform(df.iloc[:, 4:5].astype('float32')) # Close index
 df_log = pd.DataFrame(df_log)
@@ -261,7 +274,7 @@ date1 = df.Date.values.tolist()
 date3=[]
 for date in date1:
     if(str(date)!="nan"):
-        date3.append(datetime.strptime(str(date), "%Y-%m-%d")+timedelta(days=30))
+        date3.append(date_by_adding_business_days(datetime.strptime(str(date), "%Y-%m-%d"),5))
     
     #print(date)
 date2 = date1[-test_size:]
