@@ -268,7 +268,7 @@ for j in range(prediction_size):
 ans = "prediction"+str(diff.index(min(diff))+1)
 xans = d.loc[ans]
 dffinal = pd.concat([xans], axis=1)
-print(dffinal.tail(2))
+print(dffinal)
 dffinal.to_csv("gru-seq2seq-vae.csv")
 
 
