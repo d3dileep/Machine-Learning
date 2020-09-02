@@ -11,7 +11,7 @@ import time
 sns.set()
 tf.disable_v2_behavior()
 
-df = pd.read_csv('AAPL.csv')
+df = pd.read_csv('{}.csv'.format(sys.argv[1]))
 df.head()
 
 
@@ -168,7 +168,7 @@ class Agent:
 
             state = next_state
         fi = pd.read_csv('7.csv')
-        print(fi.tail(2))
+        print(fi.tail(5))
 
         invest = ((initial_money - starting_money) / starting_money) * 100
         total_gains = initial_money - starting_money
