@@ -8,13 +8,15 @@ import seaborn as sns
 import sys
 import os
 import time
+import yfinance as yf
 sns.set()
 tf.disable_v2_behavior()
 
-file1 = '{}.csv'.format(sys.argv[1])
+file1 = sys.argv[1]
+data = yf.Ticker(file1).history(period="5y",interval="1d")
 save = '7_'+file1
-df = pd.read_csv(file1)
-df.head()
+df = data.reset_index()
+print(df.tail())
 
 
 class Model:
