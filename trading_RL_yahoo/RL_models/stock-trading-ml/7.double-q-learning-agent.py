@@ -11,7 +11,9 @@ import time
 sns.set()
 tf.disable_v2_behavior()
 
-df = pd.read_csv('{}.csv'.format(sys.argv[1]))
+file1 = '{}.csv'.format(sys.argv[1])
+save = '7_'+file1
+df = pd.read_csv(file1)
 df.head()
 
 
@@ -131,10 +133,10 @@ class Agent:
                       (t, self.trend[t], initial_money))
                 df1 = pd.DataFrame(
                     {'Date': date1[t+1], 'Close': [close[t+1]], 'RESULT': ['Buy']})
-                if not os.path.isfile('7.csv'):
-                    df1.to_csv('7.csv', index=False)
+                if not os.path.isfile(save):
+                    df1.to_csv(save, index=False)
                 else:
-                    df1.to_csv('7.csv', index=False, mode='a', header=False)
+                    df1.to_csv(save, index=False, mode='a', header=False)
 
             elif action == 2 and len(inventory):
                 bought_price = inventory.pop(0)
@@ -150,10 +152,10 @@ class Agent:
                 )
                 df2 = pd.DataFrame(
                     {'Date': date1[t+1], 'Close': [close[t+1]], 'RESULT': ['Sell']})
-                if not os.path.isfile('7.csv'):
-                    df2.to_csv('7.csv', index=False)
+                if not os.path.isfile(save):
+                    df2.to_csv(save, index=False)
                 else:
-                    df2.to_csv('7.csv', index=False, mode='a', header=False)
+                    df2.to_csv(save, index=False, mode='a', header=False)
             else:
                 print(
                     'day %d, hold UNIT at price %f,  total balance %f,'
@@ -161,13 +163,13 @@ class Agent:
                 )
                 df3 = pd.DataFrame(
                     {'Date': date1[t+1], 'Close': [close[t+1]], 'RESULT': ['Hold']})
-                if not os.path.isfile('7.csv'):
-                    df3.to_csv('7.csv', index=False)
+                if not os.path.isfile(save):
+                    df3.to_csv(save, index=False)
                 else:
-                    df3.to_csv('7.csv', index=False, mode='a', header=False)
+                    df3.to_csv(save, index=False, mode='a', header=False)
 
             state = next_state
-        fi = pd.read_csv('7.csv')
+        fi = pd.read_csv(save)
         print(fi.tail(5))
 
         invest = ((initial_money - starting_money) / starting_money) * 100
