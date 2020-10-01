@@ -30,7 +30,7 @@ df_log.head()
 num_layers = 1
 size_layer = 6
 timestamp = 5
-epoch = 500
+epoch = 50
 future_day = 50
 
 class Model:

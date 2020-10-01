@@ -26,7 +26,7 @@ file_path = '18.lstm_{}'.format(file)
 num_layers = 1
 size_layer = 128
 timestamp = 5
-epoch = 700
+epoch = 50
 dropout_rate = 0.9
 future_day = 50
 

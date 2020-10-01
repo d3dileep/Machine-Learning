@@ -23,7 +23,7 @@ date_ori = pd.to_datetime(df.iloc[:, 0]).tolist()
 print(df.head())
 
 timestamp = 5
-epoch = 500
+epoch = 50
 future_day = 50
 
 minmax = MinMaxScaler().fit(df.iloc[:, 1:].astype('float32'))
