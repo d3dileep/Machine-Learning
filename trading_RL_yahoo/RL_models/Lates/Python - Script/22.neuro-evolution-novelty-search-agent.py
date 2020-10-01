@@ -11,11 +11,12 @@ import seaborn as sns
 sns.set()
 tf.disable_v2_behavior()
 
-file_path = 'output/22.neuro-evolution-novelty-search-agent.csv'
+
 
 file = sys.argv[1]
 df = pd.read_csv(file)
 print(df.head())
+file_path = '22.neuro_novelity_{}'.format(file)
 
 close = df.Close.values.tolist()
 initial_money = 10000

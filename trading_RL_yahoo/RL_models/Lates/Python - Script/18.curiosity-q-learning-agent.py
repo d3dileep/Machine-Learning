@@ -10,13 +10,13 @@ import seaborn as sns
 sns.set()
 tf.disable_v2_behavior()
 
-file_path = 'output/18.curiosity-q-learning-agent.csv'
+
 
 file = sys.argv[1]
 df = pd.read_csv(file)
 print(df.head())
 close = df.Close.values.tolist()
-
+file_path = '18.curiosity_{}'.format(file)
 from collections import deque
 import random
 

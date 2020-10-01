@@ -10,11 +10,11 @@ import seaborn as sns
 sns.set()
 tf.disable_v2_behavior()
 
-file_path = 'output/13.double-duel-recurrent-q-learning-agent.csv'
 
 file = sys.argv[1]
 df = pd.read_csv(file)
 print(df.head())
+file_path = '13.double_duel_{}'.format(file)
 
 from collections import deque
 import random

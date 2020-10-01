@@ -14,7 +14,7 @@ file = sys.argv[1]
 df = pd.read_csv(file)
 print(df.head())
 
-file_path = 'output/21.neuro-evolution-agent.csv'
+file_path = '21.neuro_{}'.format(file)
 
 close = df.Close.values.tolist()
 initial_money = 10000

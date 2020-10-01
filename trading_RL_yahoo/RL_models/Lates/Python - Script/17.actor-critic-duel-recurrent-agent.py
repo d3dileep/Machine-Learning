@@ -10,12 +10,12 @@ import seaborn as sns
 sns.set()
 tf.disable_v2_behavior()
 
-file_path = 'output/17.actor-critic-duel-recurrent-agent.csv'
 
 file = sys.argv[1]
 df = pd.read_csv(file)
 print(df.head())
 close = df.Close.values.tolist()
+file_path = '17.actor_critic_{}'.format(file)
 
 from collections import deque
 import random

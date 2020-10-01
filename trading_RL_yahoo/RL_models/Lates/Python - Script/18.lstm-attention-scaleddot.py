@@ -17,13 +17,12 @@ sns.set()
 tf.disable_eager_execution()
 tf.disable_v2_behavior()
 
-file_path = 'output/18.lstm-attention-scaleddot.csv'
 
 file = sys.argv[1]
 df = pd.read_csv(file)
 date_ori = pd.to_datetime(df.iloc[:, 0]).tolist()
 print(df.head())
-
+file_path = '18.lstm_{}'.format(file)
 num_layers = 1
 size_layer = 128
 timestamp = 5

@@ -14,7 +14,7 @@ file = sys.argv[1]
 df = pd.read_csv(file)
 print(df.head())
 
-file_path = 'output/20.duel-curiosity-q-learning-agent.csv'
+file_path = '20.duel_curiosity_{}'.format(file)
 
 from collections import deque
 import random
