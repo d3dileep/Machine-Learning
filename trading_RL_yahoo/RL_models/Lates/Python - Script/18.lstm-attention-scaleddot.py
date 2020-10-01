@@ -17,6 +17,8 @@ sns.set()
 tf.disable_eager_execution()
 tf.disable_v2_behavior()
 
+file_path = 'output/18.lstm-attention-scaleddot.csv'
+
 file = sys.argv[1]
 df = pd.read_csv(file)
 date_ori = pd.to_datetime(df.iloc[:, 0]).tolist()
@@ -168,4 +170,4 @@ result['True Close'] = df.iloc[:, 4]
 result['Predicted Close'] = df_log[:df.shape[0], 3]
 print(result.head())
 
-result.to_csv("output/18.lstm-attention-scaleddot.csv",index=False)
+result.to_csv(file_path,index=False)

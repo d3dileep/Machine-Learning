@@ -146,4 +146,5 @@ result['True Close'] = df.iloc[:, 4]
 result['Predicted Close'] = df_log[:df.shape[0], 3]
 print(result.head())
 
-result.to_csv("output/26.lstm-residual.csv",index=False)
+file_path = ""
+result.to_csv(file_path,index=False)

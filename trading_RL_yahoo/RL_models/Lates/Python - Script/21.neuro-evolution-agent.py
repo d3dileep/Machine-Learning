@@ -14,6 +14,8 @@ file = sys.argv[1]
 df = pd.read_csv(file)
 print(df.head())
 
+file_path = 'output/21.neuro-evolution-agent.csv'
+
 close = df.Close.values.tolist()
 initial_money = 10000
 window_size = 30
@@ -118,10 +120,10 @@ class NeuroEvolution:
                 states_buy.append(t)
                 print('day %d: buy 1 unit at price %f, total balance %f'% (t, self.trend[t], initial_money))
                 df1 = pd.DataFrame({'Date': date1[t+1], 'Close': [close[t+1]],'RESULT': ['Buy'] })
-                if not os.path.isfile('output/21.neuro-evolution-agent.csv'):
-                    df1.to_csv('output/21.neuro-evolution-agent.csv', index=False)
+                if not os.path.isfile(file_path):
+                    df1.to_csv(file_path, index=False)
                 else:
-                    df1.to_csv('output/21.neuro-evolution-agent.csv', index=False, mode='a', header=False)
+                    df1.to_csv(file_path, index=False, mode='a', header=False)
             
             elif action == 2 and len(inventory):
                 bought_price = inventory.pop(0)
@@ -136,20 +138,20 @@ class NeuroEvolution:
                     % (t, self.trend[t], invest, initial_money)
                 )
                 df2 = pd.DataFrame({'Date': date1[t+1], 'Close': [close[t+1]],'RESULT': ['Sell'] })
-                if not os.path.isfile('output/21.neuro-evolution-agent.csv'):
-                    df2.to_csv('output/21.neuro-evolution-agent.csv', index=False)
+                if not os.path.isfile(file_path):
+                    df2.to_csv(file_path, index=False)
                 else:
-                    df2.to_csv('output/21.neuro-evolution-agent.csv', index=False, mode='a', header=False)
+                    df2.to_csv(file_path, index=False, mode='a', header=False)
             else:
                 print(
                     'day %d, hold UNIT at price %f,  total balance %f,'
                     % (t+1, close[t+1], initial_money)
                 )
                 df3 = pd.DataFrame({'Date': date1[t+1], 'Close': [close[t+1]], 'RESULT': ['Hold']})
-                if not os.path.isfile('output/21.neuro-evolution-agent.csv'):
-                    df3.to_csv('output/21.neuro-evolution-agent.csv', index=False)
+                if not os.path.isfile(file_path):
+                    df3.to_csv(file_path, index=False)
                 else:
-                    df3.to_csv('output/21.neuro-evolution-agent.csv', index=False, mode='a', header=False)
+                    df3.to_csv(file_path, index=False, mode='a', header=False)
             
             state = next_state
             
@@ -218,5 +220,5 @@ fittest_nets = neural_evolve.evolve(1)
 date = df.Date.values.tolist()
 neural_evolve.buy(fittest_nets,date1=date,close=close)
 
-fi = pd.read_csv("output/21.neuro-evolution-agent.csv")
+fi = pd.read_csv(file_path)
 print(fi.tail(2))
