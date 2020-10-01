@@ -279,7 +279,7 @@ agent = Agent(state_size = window_size,
               window_size = window_size, 
               trend = close, 
               skip = skip)
-agent.train(iterations = 10, checkpoint = 1, initial_money = initial_money)
+agent.train(iterations = 1, checkpoint = 1, initial_money = initial_money)
 
 date = df.Date.values.tolist()
 agent.buy(initial_money = initial_money,date1=date,close=close)

@@ -25,7 +25,7 @@ print(df.head())
 num_layers = 1
 size_layer = 128
 timestamp = 5
-epoch = 50
+epoch = 10
 dropout_rate = 0.7
 future_day = 50
 
