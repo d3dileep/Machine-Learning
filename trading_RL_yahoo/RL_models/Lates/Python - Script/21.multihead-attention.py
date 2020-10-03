@@ -23,7 +23,7 @@ date_ori = pd.to_datetime(df.iloc[:, 0]).tolist()
 print(df.head())
 
 timestamp = 5
-epoch = 50
+epoch = 1
 future_day = 50
 
 minmax = MinMaxScaler().fit(df.iloc[:, 1:].astype('float32'))
@@ -211,7 +211,14 @@ for i in range(future_day - 1):
 df_log = minmax.inverse_transform(df_log.values)
 date_ori = pd.Series(date_ori).dt.strftime(date_format = '%Y-%m-%d').tolist()
 
-
+def anchor(signal, weight):
+    buffer = []
+    last = signal[0]
+    for i in signal:
+        smoothed_val = last * weight + (1 - weight) * i
+        buffer.append(smoothed_val)
+        last = smoothed_val
+    return buffer
 
 result = pd.DataFrame()
 
@@ -219,7 +226,7 @@ print(result.shape)
 print(df.shape)
 result['Date'] = df['Date']
 result['True Close'] = df.iloc[:, 4]
-result['Predicted Close'] = df_log[:df.shape[0], 3]
+result['Predicted Close'] = anchor(df_log[:df.shape[0], 3],0.5)
 print(result.tail())
 
 file_path = '21.multihead_{}'.format(file)

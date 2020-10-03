@@ -30,7 +30,7 @@ df_log.head()
 num_layers = 1
 size_layer = 6
 timestamp = 5
-epoch = 50
+epoch = 1
 future_day = 50
 
 class Model:
@@ -139,11 +139,20 @@ date_ori = pd.Series(date_ori).dt.strftime(date_format = '%Y-%m-%d').tolist()
 
 result = pd.DataFrame()
 
+def anchor(signal, weight):
+    buffer = []
+    last = signal[0]
+    for i in signal:
+        smoothed_val = last * weight + (1 - weight) * i
+        buffer.append(smoothed_val)
+        last = smoothed_val
+    return buffer
+
 print(result.shape)
 print(df.shape)
 result['Date'] = df['Date']
 result['True Close'] = df.iloc[:, 4]
-result['Predicted Close'] = df_log[:df.shape[0], 3]
+result['Predicted Close'] = anchor(df_log[:df.shape[0], 3],0.5)
 print(result.tail())
 
 file_path = '26.lstm_res_{}'.format(file)

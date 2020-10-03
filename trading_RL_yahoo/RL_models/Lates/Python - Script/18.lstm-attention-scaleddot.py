@@ -5,15 +5,12 @@ if not sys.warnoptions:
     warnings.simplefilter('ignore')
 
 import numpy as np
-import matplotlib.pyplot as plt
 import tensorflow.compat.v1 as tf
-import seaborn as sns
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from datetime import datetime
 from datetime import timedelta
 from tqdm import tqdm
-sns.set()
 tf.disable_eager_execution()
 tf.disable_v2_behavior()
 
@@ -26,7 +23,7 @@ file_path = '18.lstm_{}'.format(file)
 num_layers = 1
 size_layer = 128
 timestamp = 5
-epoch = 50
+epoch = 1
 dropout_rate = 0.9
 future_day = 50
 
@@ -159,6 +156,14 @@ for i in range(future_day - 1):
 df_log = minmax.inverse_transform(df_log.values)
 date_ori = pd.Series(date_ori).dt.strftime(date_format = '%Y-%m-%d').tolist()
 
+def anchor(signal, weight):
+    buffer = []
+    last = signal[0]
+    for i in signal:
+        smoothed_val = last * weight + (1 - weight) * i
+        buffer.append(smoothed_val)
+        last = smoothed_val
+    return buffer
 
 result = pd.DataFrame()
 
@@ -166,7 +171,7 @@ print(result.shape)
 print(df.shape)
 result['Date'] = df['Date']
 result['True Close'] = df.iloc[:, 4]
-result['Predicted Close'] = df_log[:df.shape[0], 3]
+result['Predicted Close'] = anchor(df_log[:df.shape[0], 3],0.5)
 print(result.tail())
 
 result.to_csv(file_path,index=False)

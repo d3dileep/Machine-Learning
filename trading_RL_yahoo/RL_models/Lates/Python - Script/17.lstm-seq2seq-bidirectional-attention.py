@@ -25,7 +25,7 @@ print(df.head())
 num_layers = 1
 size_layer = 128
 timestamp = 5
-epoch = 10
+epoch = 50
 dropout_rate = 0.7
 future_day = 50
 
@@ -272,7 +272,7 @@ print(result.shape)
 print(df.shape)
 result['Date'] = df['Date']
 result['True Close'] = df.iloc[:, 4]
-result['Predicted Close'] = df_log[:df.shape[0], 3]
+result['Predicted Close'] = anchor(df_log[:df.shape[0], 3],0.5)
 print(result.tail())
 
 file_path = '17.lstm_{}'.format(file)
