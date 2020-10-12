@@ -138,7 +138,7 @@ class Agent:
             action, init_value = np.argmax(action[0]), last_state
             next_state = self.get_state(t + 1)
             
-            if action == 1 and initial_money >= close[t]:
+            if action == 1 and initial_money >= close[t] and len(inventory)<=5:
                 inventory.append(close[t])
                 initial_money -= close[t]
                 states_buy.append(t)
