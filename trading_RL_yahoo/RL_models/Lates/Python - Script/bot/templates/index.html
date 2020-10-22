@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Training</title>
+</head>
+<body>
+	<p>In the second input put 0 for pretrained model usage or 1 for training the model</p>
+	<form action="{{ url_for('index') }}" method="post">
+		<h1>Ticker</h1><br>
+	    <input type="text" name="ticker">
+	    <h1>Bool value (Without train - 0,With train - 1)</h1><br>
+	    <input type="value" name="train_bool">
+	    <input type="submit">
+	</form>
+</body>
+</html>
