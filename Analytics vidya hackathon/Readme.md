@@ -1,9 +1,16 @@
 Analytics Vidya Hackathon
-Objective: Predict if Happy Bank existing customer could be a potential lead for credit card sell. \\
-Training data: 245725 clients with 9 independent features and 1 binary dependent feature excluding ID   \\
-Test data: 105312 clients\\
-Approach:\\
-EDA:\\
+
+
+Objective: Predict if Happy Bank existing customer could be a potential lead for credit card sell.
+
+Training data: 245725 clients with 9 independent features and 1 binary dependent feature excluding ID.
+
+Test data: 105312 clients
+
+Approach:
+
+EDA:
+
 1.	Import packages, Check datatype of each column, and separate ID and Is_Lead column from training data.
 2.	 Check for imbalanced dataset, it showed 25% with 1 and 75% with 0 in dependable variable.
 3.	Check for missing values in each column, which showed Credit_product column has null values.
