@@ -7,7 +7,7 @@ pytz==2020.1
 selenium==3.141.0
 coloredlogs==14.0
 lxml==4.5.2
-tensorflow_gpu==2.2.0
+tensorflow_gpu==2.5.3
 Keras==2.2.4
 docopt==0.6.2
 pandas==1.0.5
