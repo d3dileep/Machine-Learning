@@ -1,7 +1,7 @@
 tqdm==4.47.0
 dateparser==0.7.6
 numpy==1.17.0
-Flask==1.1.2
+Flask==2.3.2
 yfinance==0.1.54
 pytz==2020.1
 selenium==3.141.0
